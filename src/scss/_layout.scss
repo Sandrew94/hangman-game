@@ -1,0 +1,99 @@
+$color-grey-light-1: #faf9f9;
+$color-grey-light-2: #f4f2f2;
+$color-grey-light-3: #f0eeee;
+$color-grey-light-4: #ccc;
+
+$color-grey-dark-1: #333;
+$color-grey-dark-2: #777;
+$color-grey-dark-3: #999;
+
+$shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+$shadow-lite: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+
+$line: 1px solid $color-grey-light-2;
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: $color-grey-dark-2;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(128, 128, 128, 0.249);
+}
+
+.hangman_background {
+  height: 60rem;
+  width: 60rem;
+  background-image: url("../img/Hangman-background.png");
+  background-size: 80% 90%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+///// Body of the hangman
+
+.head {
+  width: 5rem;
+  height: 5rem;
+  border: 2px solid black;
+  border-radius: 50%;
+  position: absolute;
+  top: 11rem;
+  left: 14.8rem;
+
+  &_cross-left {
+    @include cross-head-draw;
+    top: 0.7rem;
+    left: 0.5rem;
+  }
+
+  &_cross-right {
+    @include cross-head-draw;
+    top: 0.7rem;
+    right: 0.5rem;
+  }
+
+  &_mouth {
+    position: absolute;
+    top: 2.5rem;
+    left: 0.35rem;
+    width: 40px;
+    height: 15px;
+    border: solid 5px $color-grey-dark-2;
+    border-color: $color-grey-dark-2 transparent transparent transparent;
+    border-radius: 330%/100px 100px 0 0;
+  }
+}
+
+.manbody {
+  width: 1.3rem;
+  height: 10rem;
+  background-color: $color-grey-dark-1;
+  border-radius: 10px;
+  position: absolute;
+  top: 15.7rem;
+  left: 16.7rem;
+  &_hands {
+    &-right {
+      @include hands;
+      transform: skew(30deg, 15deg) translate(12px, 15px);
+    }
+    &-left {
+      @include hands;
+      transform: skew(-30deg, -15deg) translate(-4px, 17px);
+    }
+  }
+
+  &_foot {
+    &-right {
+      @include foot;
+      transform: skew(25deg, 10deg) translate(8px, 15px);
+    }
+    &-left {
+      @include foot;
+      transform: skew(-25deg, -10deg) translate(-8px, 15px);
+    }
+  }
+}

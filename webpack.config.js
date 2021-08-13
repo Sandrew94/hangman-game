@@ -22,10 +22,10 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
-      {
-        test: /\.(png|jpeg|jpg)$/,
-        use: ["file-loader"],
-      },
+      // {
+      //   test: /\.(png|jpeg|jpg)$/,
+      //   use: ["file-loader"],
+      // },
       {
         test: /\.(scss|css)$/,
         use: [

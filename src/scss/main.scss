@@ -1,8 +1,4 @@
-body {
-  background: #785353;
-}
+@import "components";
 
-.test {
-  font-size: 30px;
-  background-color: aqua;
-}
+@import "base";
+@import "layout";
