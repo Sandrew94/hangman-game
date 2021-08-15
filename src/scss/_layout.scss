@@ -1,4 +1,6 @@
 body {
+  display: flex;
+  flex-direction: column-reverse;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   line-height: 1.6;
@@ -81,5 +83,28 @@ body {
       @include foot;
       transform: skew(-25deg, -10deg) translate(-8px, 15px);
     }
+  }
+}
+
+////////////////
+
+.label {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: space-between;
+  height: 6.5rem;
+  width: auto;
+  margin-bottom: 3rem;
+
+  &-letter {
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+  &-text {
+    font-size: 2rem;
   }
 }

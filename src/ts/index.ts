@@ -10,6 +10,7 @@ class HangManGame {
         if (idx - 1 !== randomArrNum) return;
         console.log(arr[idx]);
         this.createHtmlKeyword(arr[idx]);
+        this.compareValue(arr[idx]);
         return arr[idx];
       });
     });
@@ -25,9 +26,19 @@ class HangManGame {
       containerLetters.insertAdjacentHTML("beforeend", html);
     });
   }
-}
 
-// ${el.toUpperCase()}
+  compareValue(inputString: string) {
+    const textInput = document.querySelector(
+      ".label-letter"
+    )! as HTMLInputElement;
+
+    textInput.addEventListener("change", () => {
+      const valueInput = textInput.value;
+      console.log(valueInput);
+      if (inputString.includes(valueInput)) console.log("it's works");
+    });
+  }
+}
 
 const randomWord = takeAPIWord(20);
 new HangManGame(randomWord);
