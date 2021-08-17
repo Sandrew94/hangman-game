@@ -14,6 +14,10 @@ export class HangManGame_View {
     });
   }
 
+  static wrongDigit(htmlElement: string) {
+    const hangman = document.querySelector(htmlElement)! as HTMLDivElement;
+    hangman?.classList.remove("hidden");
+  }
+
   winningMessage() {}
-  wrongDigit() {}
 }

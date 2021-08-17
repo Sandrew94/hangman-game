@@ -24,27 +24,58 @@ export class HangManGame_Value {
       ".label-letter"
     )! as HTMLInputElement;
     const formEl = document.querySelector("form")! as HTMLFormElement;
-
+    ////
+    let i = 0;
     formEl.addEventListener("submit", (e) => {
       e.preventDefault();
-      this.compareString(textInput, inputString);
+      if (!this.compareString(textInput, inputString)) {
+        i++;
+        console.log(i);
+        const handleError = [
+          ".head",
+          ".manbody",
+          ".manbody_hands-right",
+          ".manbody_hands-left",
+          ".manbody_foot-right",
+          ".manbody_foot-left",
+        ];
+
+        handleError.forEach((el, idx) => {
+          if (i === idx + 1) {
+            HangManGame_View.wrongDigit(el);
+          }
+        });
+
+        if (i === 7) {
+          console.log("display a FAIL GAME WRITE");
+          console.log("create button that generate a new game");
+        }
+      } else {
+        this.compareString(textInput, inputString);
+      }
     });
   }
 
   compareString(textInput: HTMLInputElement, inputString: string) {
     const valueInput = textInput.value;
     console.log(valueInput);
+
     if (inputString.includes(valueInput)) {
-      Array.from(inputString).forEach((el, idx) => {
+      Array.from(inputString).forEach((el: string, idx: number) => {
         if (el === valueInput) {
-          const test = document.querySelector(
+          const dataTagWord = document.querySelector(
             `[data-tag="${idx}"]`
           )! as HTMLDataElement;
-          test.innerHTML = `${valueInput}`;
+          dataTagWord.innerHTML = `${valueInput}`;
         }
       });
     } else {
-      console.log("error");
+      return false;
     }
+    return true;
   }
+
+  handleError() {}
+
+  checkInput() {}
 }
