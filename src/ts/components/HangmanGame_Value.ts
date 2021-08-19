@@ -1,4 +1,5 @@
 import { HangManGame_View } from "../view/HangmanGame_View";
+import { Validatable, validate } from "../components/validatable";
 
 export class HangManGame_Value {
   constructor(public word: Promise<string | void>) {
@@ -25,31 +26,28 @@ export class HangManGame_Value {
     )! as HTMLInputElement;
     const formEl = document.querySelector("form")! as HTMLFormElement;
     ////
-    let i = 0;
+    let i = 0; //For errors
     formEl.addEventListener("submit", (e) => {
       e.preventDefault();
+      ////////////
+      //Validation
+      const inputValid: Validatable = {
+        value: textInput.value,
+        whiteSpace: true,
+        maxLength: 1,
+        allowNumber: false,
+      };
+
+      if (!validate(inputValid)) {
+        alert("INSERT A VALID INPUT! MAX 1 VALUE - NO NUMBERS");
+        return;
+      }
+      ////////////
+
       if (!this.compareString(textInput, inputString)) {
         i++;
+        this.handleError(i);
         console.log(i);
-        const handleError = [
-          ".head",
-          ".manbody",
-          ".manbody_hands-right",
-          ".manbody_hands-left",
-          ".manbody_foot-right",
-          ".manbody_foot-left",
-        ];
-
-        handleError.forEach((el, idx) => {
-          if (i === idx + 1) {
-            HangManGame_View.wrongDigit(el);
-          }
-        });
-
-        if (i === 7) {
-          console.log("display a FAIL GAME WRITE");
-          console.log("create button that generate a new game");
-        }
       } else {
         this.compareString(textInput, inputString);
       }
@@ -61,7 +59,7 @@ export class HangManGame_Value {
     console.log(valueInput);
 
     if (inputString.includes(valueInput)) {
-      Array.from(inputString).forEach((el: string, idx: number) => {
+      [...inputString].forEach((el: string, idx: number) => {
         if (el === valueInput) {
           const dataTagWord = document.querySelector(
             `[data-tag="${idx}"]`
@@ -75,7 +73,25 @@ export class HangManGame_Value {
     return true;
   }
 
-  handleError() {}
+  handleError(i: number) {
+    const handleError = [
+      ".head",
+      ".manbody",
+      ".manbody_hands-right",
+      ".manbody_hands-left",
+      ".manbody_foot-right",
+      ".manbody_foot-left",
+    ];
 
-  checkInput() {}
+    handleError.forEach((el, idx) => {
+      if (i === idx + 1) {
+        HangManGame_View.wrongDigit(el);
+      }
+    });
+
+    if (i === 7) {
+      console.log("display a FAIL GAME WRITE");
+      console.log("create button that generate a new game");
+    }
+  }
 }
