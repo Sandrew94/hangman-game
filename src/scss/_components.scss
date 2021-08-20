@@ -40,10 +40,13 @@
   display: none;
 }
 
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .words_container {
-  position: absolute;
-  top: 2%;
-  left: 50%;
   &-length {
     font-size: 4rem;
     color: $color-grey-dark-1;

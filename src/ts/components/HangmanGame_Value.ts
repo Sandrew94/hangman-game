@@ -20,7 +20,7 @@ export class HangManGame_Value {
     });
   }
 
-  submitValue(inputString: string) {
+  submitValue(inputString: string): void {
     const textInput = document.querySelector(
       ".label-letter"
     )! as HTMLInputElement;
@@ -54,26 +54,30 @@ export class HangManGame_Value {
     });
   }
 
-  compareString(textInput: HTMLInputElement, inputString: string) {
+  compareString(textInput: HTMLInputElement, inputString: string): boolean {
     const valueInput = textInput.value;
     console.log(valueInput);
 
     if (inputString.includes(valueInput)) {
-      [...inputString].forEach((el: string, idx: number) => {
+      [...inputString].forEach((el: string, idx: number): void => {
         if (el === valueInput) {
           const dataTagWord = document.querySelector(
             `[data-tag="${idx}"]`
           )! as HTMLDataElement;
           dataTagWord.innerHTML = `${valueInput}`;
         }
+
+        // const test = document.querySelector(".words_container-length");
+        // console.log(test); add WINNING MESSAGE
       });
+
+      return true;
     } else {
       return false;
     }
-    return true;
   }
 
-  handleError(i: number) {
+  handleError(i: number): void {
     const handleError = [
       ".head",
       ".manbody",
@@ -83,15 +87,18 @@ export class HangManGame_Value {
       ".manbody_foot-left",
     ];
 
-    handleError.forEach((el, idx) => {
+    handleError.forEach((el: string, idx: number): void => {
       if (i === idx + 1) {
         HangManGame_View.wrongDigit(el);
       }
     });
 
     if (i === 7) {
-      console.log("display a FAIL GAME WRITE");
-      console.log("create button that generate a new game");
+      HangManGame_View.messageWinLose(
+        "YOU LOOSE! CLICK THE BUTTON TO TRY AGAIN "
+      );
+
+      HangManGame_View.restartGame();
     }
   }
 }
