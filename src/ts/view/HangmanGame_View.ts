@@ -19,5 +19,5 @@ export class HangManGame_View {
     hangman?.classList.remove("hidden");
   }
 
-  winningMessage() {}
+  messageWinLose() {}
 }

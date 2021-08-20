@@ -13,17 +13,23 @@ export const validate = function (validateInput: Validatable) {
     isValid = isValid && validateInput.value.toString().trim().length !== 0;
   }
 
-  ///// allow numbers
-  if (!validateInput.allowNumber && typeof +validateInput.value === "number") {
-    isValid = isValid && typeof validateInput.value === "number";
-  }
-
   //////////// max length
   if (
     validateInput.maxLength != null &&
     typeof validateInput.value === "string"
   ) {
     isValid = isValid && validateInput.value.length <= validateInput.maxLength;
+  }
+
+  ///// allow numbers
+
+  if (
+    !validateInput.allowNumber &&
+    !isNaN(parseFloat(validateInput.value)) &&
+    isFinite(+validateInput.value)
+  ) {
+    //console.log("ci entra");
+    isValid = isValid && false;
   }
 
   ////
