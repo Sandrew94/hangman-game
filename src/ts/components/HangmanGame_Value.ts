@@ -1,9 +1,17 @@
 import { HangManGame_View } from "../view/HangmanGame_View";
 import { Validatable, validate } from "../components/validatable";
+import { removeDuplicateCharacters } from "./removeDuplicatedChar";
 
 export class HangManGame_Value {
   constructor(public word: Promise<string | void>) {
     this.manipulatePromise(word);
+    //Focus
+    window.onload = function getfocus() {
+      const focusInput = document.getElementById(
+        "label-focus"
+      )! as HTMLInputElement;
+      focusInput.focus();
+    };
   }
 
   manipulatePromise(word: Promise<string | void>) {
@@ -13,8 +21,8 @@ export class HangManGame_Value {
       data.map((_: string, idx: number, arr: string[]): undefined | string => {
         if (idx - 1 !== randomArrNum) return;
         console.log(arr[idx]);
-        new HangManGame_View(arr[idx]);
-        this.submitValue(arr[idx]);
+        new HangManGame_View(arr[idx]); //Create html elements and inject them
+        this.submitValue(arr[idx]); //Submit of the input field
         return arr[idx];
       });
     });
@@ -25,12 +33,13 @@ export class HangManGame_Value {
       ".label-letter"
     )! as HTMLInputElement;
     const formEl = document.querySelector("form")! as HTMLFormElement;
-    ////
-    let i = 0; //For errors
+    //////
+    let errors = 0; //Counter errors
+    let winnerWord = 0; //Counter winners
     formEl.addEventListener("submit", (e) => {
       e.preventDefault();
       ////////////
-      //Validation
+      //Validation for the input field
       const inputValid: Validatable = {
         value: textInput.value,
         whiteSpace: true,
@@ -45,18 +54,24 @@ export class HangManGame_Value {
       ////////////
 
       if (!this.compareString(textInput, inputString)) {
-        i++;
-        this.handleError(i);
-        console.log(i);
+        errors++; //counter for error
+        this.handleError(errors); //For each errors it appears an images of hangman
       } else {
         this.compareString(textInput, inputString);
+        winnerWord++; //Counter for correct letters
+
+        //Winning message
+        if (winnerWord === removeDuplicateCharacters(inputString).length) {
+          HangManGame_View.messageWinLose("YOU WIN!");
+
+          HangManGame_View.restartGame();
+        }
       }
     });
   }
 
   compareString(textInput: HTMLInputElement, inputString: string): boolean {
     const valueInput = textInput.value;
-    console.log(valueInput);
 
     if (inputString.includes(valueInput)) {
       [...inputString].forEach((el: string, idx: number): void => {
@@ -66,9 +81,6 @@ export class HangManGame_Value {
           )! as HTMLDataElement;
           dataTagWord.innerHTML = `${valueInput}`;
         }
-
-        // const test = document.querySelector(".words_container-length");
-        // console.log(test); add WINNING MESSAGE
       });
 
       return true;
@@ -77,7 +89,7 @@ export class HangManGame_Value {
     }
   }
 
-  handleError(i: number): void {
+  handleError(errors: number): void {
     const handleError = [
       ".head",
       ".manbody",
@@ -88,15 +100,13 @@ export class HangManGame_Value {
     ];
 
     handleError.forEach((el: string, idx: number): void => {
-      if (i === idx + 1) {
+      if (errors === idx + 1) {
         HangManGame_View.wrongDigit(el);
       }
     });
 
-    if (i === 7) {
-      HangManGame_View.messageWinLose(
-        "YOU LOOSE! CLICK THE BUTTON TO TRY AGAIN "
-      );
+    if (errors === 7) {
+      HangManGame_View.messageWinLose("YOU LOOSE!");
 
       HangManGame_View.restartGame();
     }
