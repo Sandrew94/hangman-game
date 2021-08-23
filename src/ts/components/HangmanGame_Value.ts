@@ -36,7 +36,7 @@ export class HangManGame_Value {
     //////
     let errors = 0; //Counter errors
     let winnerWord = 0; //Counter winners
-    formEl.addEventListener("submit", (e) => {
+    formEl.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       ////////////
       //Validation for the input field

@@ -8,7 +8,9 @@ export class HangManGame_View {
       ".words_container"
     )! as HTMLDivElement;
 
-    [...singleWord].forEach((_, idx) => {
+    ////
+    //Create html from the string word from API
+    [...singleWord].forEach((_: string, idx: number) => {
       let html = `<span class="words_container-length" data-tag="${idx}">*</span>`;
       containerLetters.insertAdjacentHTML("beforeend", html);
     });
