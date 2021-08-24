@@ -1,9 +1,4 @@
-export interface Validatable {
-  value: string;
-  whiteSpace?: boolean;
-  maxLength: number;
-  allowNumber?: boolean;
-}
+import { Validatable } from "../utils/exportTypes";
 
 export const validate = function (validateInput: Validatable) {
   let isValid = true;

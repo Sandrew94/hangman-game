@@ -1,3 +1,5 @@
+import { forEachType } from "../utils/exportTypes";
+
 export class HangManGame_Keyboard {
   constructor() {
     this.createKeys();
@@ -5,7 +7,7 @@ export class HangManGame_Keyboard {
   }
 
   createKeys() {
-    const keyLayout = [
+    const keyLayout: string[] = [
       "1",
       "2",
       "3",
@@ -45,23 +47,24 @@ export class HangManGame_Keyboard {
       "space",
     ];
 
-    keyLayout.forEach((key: string) => {
+    const createKeyboard: forEachType = (key) => {
       const keyboardContainer = document.querySelector(
         ".keyboard_container"
       )! as HTMLDivElement;
       const html = `<input type="button" value="${key}" class='keyboard__key'>
       `;
       keyboardContainer.insertAdjacentHTML("beforeend", html);
-    });
+    };
+
+    keyLayout.forEach(createKeyboard);
   }
 
   createInputKey() {
-    const allKey = document.querySelectorAll(
-      ".keyboard__key"
-    )! as NodeListOf<Element>;
+    const allKey: HTMLInputElement[] = [
+      ...document.querySelectorAll<HTMLInputElement>(".keyboard__key"),
+    ];
     const label = document.querySelector(".label-letter")! as HTMLInputElement;
-    allKey.forEach((htmlKey: any) => {
-      console.log(htmlKey);
+    allKey.forEach((htmlKey: HTMLInputElement) => {
       htmlKey.addEventListener("click", () => {
         switch (htmlKey.value) {
           case "space":

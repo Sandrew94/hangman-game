@@ -1,4 +1,5 @@
 import { HangManGame_Keyboard } from "./HangmanGame_keyboard";
+import { forEachType } from "../utils/exportTypes";
 
 export class HangManGame_View {
   constructor(public singleWord: string) {
@@ -12,11 +13,16 @@ export class HangManGame_View {
     )! as HTMLDivElement;
 
     ////
-    //Create html from the string word from API
-    [...singleWord].forEach((_: string, idx: number) => {
-      let html = `<span class="words_container-length" data-tag="${idx}">*</span>`;
-      containerLetters.insertAdjacentHTML("beforeend", html);
-    });
+    //Create an html span with dinamic data-tag from the word that comes from the API
+
+    const singleLetter: forEachType = (_, idx) => {
+      {
+        let html = `<span class="words_container-length" data-tag="${idx}">*</span>`;
+        containerLetters.insertAdjacentHTML("beforeend", html);
+      }
+    };
+
+    [...singleWord].forEach(singleLetter);
   }
 
   static wrongDigit(htmlElementValue: string) {
@@ -28,7 +34,6 @@ export class HangManGame_View {
     const containerWord = document.querySelector(
       ".words_container"
     )! as HTMLDivElement;
-
     containerWord.innerHTML = "";
 
     let html = `

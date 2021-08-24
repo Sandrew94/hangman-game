@@ -1,6 +1,7 @@
 import { HangManGame_View } from "../view/HangmanGame_View";
-import { Validatable, validate } from "../components/validatable";
-import { removeDuplicateCharacters } from "./removeDuplicatedChar";
+import { validate } from "../components/validatable";
+import { Validatable } from "../utils/exportTypes";
+import { forEachType } from "../utils/exportTypes";
 
 export class HangManGame_Value {
   constructor(public word: Promise<string | void>) {
@@ -14,21 +15,24 @@ export class HangManGame_Value {
     };
   }
 
-  private manipulatePromise(word: Promise<string | void>): any {
+  private manipulatePromise(word: Promise<string | void>) {
     word.then((data: any) => {
-      const randomArrNum = Math.floor(Math.random() * (data.length + 1));
+      const randomArrNum: number = Math.floor(
+        Math.random() * (data.length + 1)
+      );
 
-      data.map((_: string, idx: number, arr: string[]): undefined | string => {
+      const apiManipulation: forEachType = (_, idx, arr) => {
         if (idx - 1 !== randomArrNum) return;
         console.log(arr[idx]);
         new HangManGame_View(arr[idx]); //Create html elements and inject them
         this.submitValue(arr[idx]); //Submit of the input field
-        return arr[idx];
-      });
+      };
+      ////
+      data.forEach(apiManipulation);
     });
   }
 
-  submitValue(inputString: string): void {
+  private submitValue(inputString: string): void {
     const textInput = document.querySelector(
       ".label-letter"
     )! as HTMLInputElement;
@@ -55,21 +59,24 @@ export class HangManGame_Value {
       }
       ////////////
 
-      if (!this.compareString(textInput, inputString)) {
+      if (this.compareString(textInput, inputString)) {
+        winnerWord++; //Counter for correct letters
+        //Winning message
+        this.winningMethod(winnerWord, inputString);
+        this.compareString(textInput, inputString);
+      } else {
         errors++; //counter for error
         this.handleError(errors); //For each errors it appears an images of hangman
-      } else {
-        this.compareString(textInput, inputString);
-        winnerWord++; //Counter for correct letters
-
-        //Winning message
-        if (winnerWord === removeDuplicateCharacters(inputString).length) {
-          HangManGame_View.messageWinLose("YOU WIN!");
-
-          HangManGame_View.restartGame();
-        }
       }
     });
+  }
+
+  public removeDuplicateCharacters(string: string): number {
+    const splitString = string.split("");
+    const filterString: forEachType = (item, pos, self) => {
+      return self.indexOf(item) == pos;
+    };
+    return splitString.filter(filterString).join("").length;
   }
 
   private compareString(
@@ -79,14 +86,19 @@ export class HangManGame_Value {
     const valueInput = textInput.value;
 
     if (inputString.includes(valueInput)) {
-      [...inputString].forEach((el: string, idx: number): void => {
+      //
+      const checkWordCallback: forEachType = (el, idx): void => {
         if (el === valueInput) {
           const dataTagWord = document.querySelector(
             `[data-tag="${idx}"]`
           )! as HTMLDataElement;
+
+          if (!dataTagWord) return; //Guard clause
           dataTagWord.innerHTML = `${valueInput}`;
         }
-      });
+      };
+
+      [...inputString].forEach(checkWordCallback);
 
       return true;
     } else {
@@ -95,7 +107,7 @@ export class HangManGame_Value {
   }
 
   private handleError(errors: number): void {
-    const handleError = [
+    const handleError: string[] = [
       ".head",
       ".manbody",
       ".manbody_hands-right",
@@ -104,14 +116,23 @@ export class HangManGame_Value {
       ".manbody_foot-left",
     ];
 
-    handleError.forEach((el: string, idx: number): void => {
+    const handleErrorCallback: forEachType = (el, idx): void => {
       if (errors === idx + 1) {
-        HangManGame_View.wrongDigit(el);
+        HangManGame_View.wrongDigit(el!);
       }
-    });
+    };
+
+    handleError.forEach(handleErrorCallback);
 
     if (errors === 6) {
       HangManGame_View.messageWinLose("YOU LOOSE!");
+      HangManGame_View.restartGame();
+    }
+  }
+
+  private winningMethod(correctWord: number, inputString: string) {
+    if (correctWord === this.removeDuplicateCharacters(inputString)) {
+      HangManGame_View.messageWinLose("YOU WIN!");
       HangManGame_View.restartGame();
     }
   }
