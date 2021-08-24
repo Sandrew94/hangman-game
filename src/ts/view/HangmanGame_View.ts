@@ -1,6 +1,9 @@
+import { HangManGame_Keyboard } from "./HangmanGame_keyboard";
+
 export class HangManGame_View {
   constructor(public singleWord: string) {
     this.createHtmlKeyword(singleWord);
+    new HangManGame_Keyboard();
   }
 
   createHtmlKeyword(singleWord: string) {

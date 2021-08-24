@@ -75,3 +75,55 @@
     padding: 1rem 2rem;
   }
 }
+
+////////
+
+.container-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submit-value {
+  border: none;
+  background: #33675d;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 0.7rem 2rem;
+  margin-left: 1.5rem;
+
+  &:hover {
+    background-color: #26544b;
+    cursor: pointer;
+  }
+}
+
+.box_container {
+  display: flex;
+  position: relative;
+}
+.keyboard_container {
+  top: 10%;
+  left: 60%;
+  position: absolute;
+  width: 35%;
+  height: 13rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.keyboard__key {
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  margin: 0.5rem;
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+.back-color {
+  outline: none;
+  background: #33675d;
+  color: #ffffff;
+}

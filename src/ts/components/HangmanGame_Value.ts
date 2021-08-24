@@ -14,7 +14,7 @@ export class HangManGame_Value {
     };
   }
 
-  manipulatePromise(word: Promise<string | void>) {
+  private manipulatePromise(word: Promise<string | void>): any {
     word.then((data: any) => {
       const randomArrNum = Math.floor(Math.random() * (data.length + 1));
 
@@ -48,7 +48,9 @@ export class HangManGame_Value {
       };
 
       if (!validate(inputValid)) {
-        alert("INSERT A VALID INPUT! MAX 1 VALUE - NO NUMBERS");
+        alert(
+          "INSERT A VALID INPUT! MAX 1 VALUE - NO NUMBERS - NO EMPTY SPACE"
+        );
         return;
       }
       ////////////
@@ -70,7 +72,10 @@ export class HangManGame_Value {
     });
   }
 
-  compareString(textInput: HTMLInputElement, inputString: string): boolean {
+  private compareString(
+    textInput: HTMLInputElement,
+    inputString: string
+  ): boolean {
     const valueInput = textInput.value;
 
     if (inputString.includes(valueInput)) {
@@ -89,7 +94,7 @@ export class HangManGame_Value {
     }
   }
 
-  handleError(errors: number): void {
+  private handleError(errors: number): void {
     const handleError = [
       ".head",
       ".manbody",
@@ -105,9 +110,8 @@ export class HangManGame_Value {
       }
     });
 
-    if (errors === 7) {
+    if (errors === 6) {
       HangManGame_View.messageWinLose("YOU LOOSE!");
-
       HangManGame_View.restartGame();
     }
   }

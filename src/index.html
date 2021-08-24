@@ -7,31 +7,37 @@
     <title>HangmanGame</title>
   </head>
   <body>
-    <main class="hangman_background">
-      <div class="head hidden">
-        <div class="head_cross-left"></div>
-        <div class="head_cross-right"></div>
-        <div class="head_mouth"></div>
-      </div>
-      <div class="manbody hidden">
-        <div class="manbody_hands">
-          <div class="manbody_hands-right hidden"></div>
-          <div class="manbody_hands-left hidden"></div>
+    <div class="box_container">
+      <main class="hangman_background">
+        <div class="head hidden">
+          <div class="head_cross-left"></div>
+          <div class="head_cross-right"></div>
+          <div class="head_mouth"></div>
         </div>
-        <div class="manbody_foot">
-          <div class="manbody_foot-right hidden"></div>
-          <div class="manbody_foot-left hidden"></div>
+        <div class="manbody hidden">
+          <div class="manbody_hands">
+            <div class="manbody_hands-right hidden"></div>
+            <div class="manbody_hands-left hidden"></div>
+          </div>
+          <div class="manbody_foot">
+            <div class="manbody_foot-right hidden"></div>
+            <div class="manbody_foot-left hidden"></div>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <div class="keyboard_container"></div>
+    </div>
     <form class="input">
       <label for="input-letter" class="label">
-        <input
-          type="text"
-          name="input-letter"
-          class="label-letter"
-          id="label-focus"
-        />
+        <div class="container-submit">
+          <input
+            type="text"
+            name="input-letter"
+            class="label-letter"
+            id="label-focus"
+          />
+          <button class="submit-value">Enter</button>
+        </div>
 
         <span class="label-text">Digit only one letter, then press Enter</span>
       </label>
