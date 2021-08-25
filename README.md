@@ -1,63 +1,58 @@
-# Hangman Game
+<br />
+<p align="center">
 
-Hangman is a simple game that revolves around guessing a randomly chosen word.
+  <h1 align="center">#Hangman Game</h1>
 
-The player gets to choose an alphabet every round.
-If the alphabet does not exist in the chosen word, the player will receive one strike.
-After receiving a certain number of strikes, the player loses the game.
-The player will win the game if he/she/it correctly guesses all the alphabets.
+<!-- TABLE OF CONTENTS -->
+<summary>
+<h2 style="display: inline-block">Table of Contents</h2></summary>
+<details open="open">  
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
+<!-- ABOUT THE PROJECT -->
 
-## Rules and Usage
-1. Initialize this project with `npm` running `npm init`
-2. Install and configure `Jest` as a testing library
-3. To run the tests, run `npm run test`
-4. Write the code following the **TDD** (Test Driven Development) approach
+## About The Project
 
-## The Three Rules of TDD
-1. You are not allowed to write any production code unless it is to make a failing unit test pass.
-2. You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
-3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+- In this project when you open the deploy, you should click the letter in the virtual keyboard, if a single word matches with the word that was choosen from the API, it replace the hidden char.
+- If you wrong the char, it display an hangman. Allowed MAX 6 ERRORS
 
-Which means the workflow is:
+### Built With
 
-1. Write a failing test. Stop writing the test as soon as it fails.
-2. Write the minimal production code required for the test to pass. Stop writing any code once the test passes.
-3. Refactor the test code and the production code without altering the functionality. All tests should pass.
+- [Typescript](https://www.typescriptlang.org/)
+- [Sass](https://sass-lang.com/)
+- [Webpack](https://webpack.js.org/)
 
+## Usage
 
+1. Open [HANGMAN-GAME](https://hangman-game-td.netlify.app/)
+2. Click the chars in the virtual keyboard
+3. See the result, if match it replace the hidden char otherwise it display the hangman
+4. MAX 6 ERRORS ALLOWED
 
+<!-- CONTRIBUTING -->
 
-Before starting any of the tasks in this Learning Path, please READ the following rules
-===============================
+## Contributing
 
-What do you need to start this Learning Path:
-----------------
-1. A GitHub account
-3. A Local IDE or Editor
-5. Git Environment
-6. A http://toggl.com/ account and Chrome Extension
-7. A Netlify account
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Rules that you MUST follow:
-----------------
-- **Fork this repo into your own Github Account** as a **public** Repository
-- **Create a Github Project** connected to the repository
-- Read **carefully** the task description
-- Analyze the task, and **create relative subtasks** to track any requirement and knowledge needed
-- **Assign an estimate to each created subtask**
-- Define a **deadline for the main task**
-- **Provide a Flowchart within the project**
-- Where required, involve other members of the community to support you on the development
-- When working on a task, move it to the **In progress** column and start tracking it
-- After each task completion, **move it to the "Done" column** and stop tracking it
-- After the main task completion, share the solution (e.g. your GitHub repo) over the community
+<!-- CONTACT -->
 
-Following some useful materials for your work:
-----------------
+## Contact
 
-[Git and GitHub configuration and usage](https://www.loom.com/share/6b86aa3bc0aa4f2d88a315bc9d3209c4)
-
-[Pseudo Code Methodology](https://wtmatter.com/pseudocode/)
-
-
+Sandrew94 - [@My_twitter](https://twitter.com/AndreaSanti15) - [Email](santi_andrea@hotmail.it)
