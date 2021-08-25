@@ -13,8 +13,7 @@ export class HangManGame_View {
     )! as HTMLDivElement;
 
     ////
-    //Create an html span with dinamic data-tag from the word that comes from the API
-
+    //Create an html span with dinamic data-tag from the word that comes from the API than push it in the HTML
     const singleLetter: forEachType = (_, idx) => {
       {
         let html = `<span class="words_container-length" data-tag="${idx}">*</span>`;
@@ -30,7 +29,7 @@ export class HangManGame_View {
     hangman?.classList.remove("hidden");
   }
 
-  static messageWinLose(text: string): void {
+  static messageWinLose(text: string, correctWord: string): void {
     const containerWord = document.querySelector(
       ".words_container"
     )! as HTMLDivElement;
@@ -38,7 +37,7 @@ export class HangManGame_View {
 
     let html = `
     <div class="text_container">
-          <span class="text_container-text">${text}</span>
+          <span class="text_container-text">${text} -- The correct word is "${correctWord}"</span>
           <button class="text_container-btn">Click me to restart the game</button>
     </div>
     `;

@@ -74,7 +74,7 @@ export class HangManGame_Keyboard {
             label.value = htmlKey.value;
             break;
         }
-        htmlKey.classList.toggle("back-color");
+        htmlKey.classList.add("back-color", "disable");
       });
     });
   }

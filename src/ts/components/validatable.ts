@@ -23,7 +23,6 @@ export const validate = function (validateInput: Validatable) {
     !isNaN(parseFloat(validateInput.value)) &&
     isFinite(+validateInput.value)
   ) {
-    //console.log("ci entra");
     isValid = isValid && false;
   }
 

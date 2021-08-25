@@ -127,3 +127,10 @@
   background: #33675d;
   color: #ffffff;
 }
+
+////
+//Disabled button
+.disable {
+  cursor: not-allowed;
+  pointer-events: none;
+}
