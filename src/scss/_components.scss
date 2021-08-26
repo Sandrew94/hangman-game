@@ -46,6 +46,11 @@
   align-items: center;
 }
 
+.input-error {
+  font-size: 2.5rem;
+  color: rgba(237, 33, 10, 0.79);
+}
+
 .words_container {
   &-length {
     font-size: 4rem;
