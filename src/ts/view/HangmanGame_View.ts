@@ -2,22 +2,29 @@ import { HangManGame_Keyboard } from "./HangmanGame_keyboard";
 import { forEachType } from "../utils/exportTypes";
 
 export class HangManGame_View {
+  private containerLetters: HTMLDivElement;
+  static inputContainer: HTMLInputElement;
+
   constructor(public singleWord: string) {
+    this.containerLetters = document.querySelector(
+      ".words_container"
+    )! as HTMLDivElement;
     this.createHtmlKeyword(singleWord);
+
+    ///////
+    HangManGame_View.inputContainer = document.querySelector(
+      ".input"
+    )! as HTMLInputElement;
+
     new HangManGame_Keyboard();
   }
 
   public createHtmlKeyword(singleWord: string) {
-    const containerLetters = document.querySelector(
-      ".words_container"
-    )! as HTMLDivElement;
-
-    ////
     //Create an html span with dinamic data-tag from the word that comes from the API than push it in the HTML
     const singleLetter: forEachType = (_, idx) => {
       {
         let html = `<span class="words_container-length" data-tag="${idx}">*</span>`;
-        containerLetters.insertAdjacentHTML("beforeend", html);
+        this.containerLetters.insertAdjacentHTML("beforeend", html);
       }
     };
 
@@ -30,10 +37,7 @@ export class HangManGame_View {
   }
 
   static messageWinLose(text: string, correctWord: string): void {
-    const inputContainer = document.querySelector(
-      ".input"
-    )! as HTMLInputElement;
-    inputContainer.innerHTML = "";
+    this.inputContainer.innerHTML = "";
 
     let html = `
     <div class="text_container">
@@ -42,15 +46,15 @@ export class HangManGame_View {
     </div>
     `;
 
-    inputContainer.insertAdjacentHTML("beforeend", html);
+    this.inputContainer.insertAdjacentHTML("beforeend", html);
   }
 
   static restartGame() {
-    const btn = document.querySelector(
+    const btnRestart = document.querySelector(
       ".text_container-btn"
     )! as HTMLButtonElement;
 
-    btn.addEventListener("click", () => {
+    btnRestart.addEventListener("click", () => {
       location.reload();
     });
   }

@@ -6,16 +6,44 @@ import { forEachType } from "../utils/exportTypes";
 export class HangManGame_Value {
   private errors: number = 0; //Counter errors
   private winnerWord: number = 0; //Counter winners
+  private textInput: HTMLInputElement;
+  private formEl: HTMLFormElement;
+  ////////
+  ///////
+
+  get validationInput() {
+    if (this.textInput.value === "") return; //No Empty string allowed
+    /////////
+    //Validation for the input field
+    //1- WHITE SPACE NOT ALLOWED
+    //2- MAX LENGTH 1
+    //3- NO NUMBERS ALLOWED
+
+    const inputValid: Validatable = {
+      value: this.textInput.value,
+      whiteSpace: true,
+      maxLength: 1,
+      allowNumber: false,
+    };
+
+    if (!validate(inputValid)) {
+      return alert(
+        "INSERT A VALID INPUT! MAX 1 VALUE - NO NUMBERS - NO WHITE SPACE"
+      );
+    }
+  }
 
   constructor(public word: Promise<string | void>) {
-    this.manipulatePromise(word); //This input all the methods in the html
-    //Focus on the input
-    window.onload = function getfocus() {
-      const focusInput = document.getElementById(
-        "label-focus"
-      )! as HTMLInputElement;
-      focusInput.focus();
-    };
+    //ELEMENTS
+    this.textInput = document.querySelector(
+      ".label-letter"
+    )! as HTMLInputElement;
+
+    this.formEl = document.querySelector("form")! as HTMLFormElement;
+
+    ///////////
+    this.manipulatePromise(word); //This push all the methods in the html
+    //////////
   }
 
   private manipulatePromise(word: Promise<string | void>) {
@@ -35,45 +63,23 @@ export class HangManGame_Value {
   }
 
   private submitValue(inputString: string): void {
-    const textInput = document.querySelector(
-      ".label-letter"
-    )! as HTMLInputElement;
-    const formEl = document.querySelector("form")! as HTMLFormElement;
-    //////
-    formEl.addEventListener("submit", (e: Event) => {
+    this.formEl.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       ////////////
-      //Validation for the input field
-      //1- WHITE SPACE ALLOWED
-      //2- MAX LENGTH 1
-      //3- NO NUMBERS ALLOWED
-      if (textInput.value === "") return; //No Empty string
-      const inputValid: Validatable = {
-        value: textInput.value,
-        whiteSpace: true,
-        maxLength: 1,
-        allowNumber: false,
-      };
-
-      if (!validate(inputValid)) {
-        return alert(
-          "INSERT A VALID INPUT! MAX 1 VALUE - NO NUMBERS - NO WHITE SPACE"
-        );
-      }
+      this.validationInput; //Validate the input
       ////////////
 
-      if (this.compareString(textInput, inputString)) {
-        this.winnerWord++; //Counter for correct guessed word
-        this.winningMethod(this.winnerWord, inputString, inputString); //Winning message
+      if (this.compareString(inputString)) {
+        this.winnerWord++;
+        this.winningMethod(inputString, inputString); //Winning message
         ///////
-        // Compare the letter in the input with the string that i need to guess
-        this.compareString(textInput, inputString);
+        // Compare the letter in the input with the string that i need to guess and replace the matched words
+        this.compareString(inputString);
       } else {
-        this.errors++; //counter for error
-        this.handleError(this.errors, inputString); //For each errors it appears an images of hangman
-        //Max 6 than game over
+        this.errors++;
+        this.handleError(inputString); //For each errors it appears an images of hangman //Max 6 errors
       }
-      textInput.value = "";
+      this.textInput.value = "";
     });
   }
 
@@ -85,22 +91,17 @@ export class HangManGame_Value {
     return splitString.filter(filterString).join("").length;
   }
 
-  private compareString(
-    textInput: HTMLInputElement,
-    inputString: string
-  ): boolean {
-    const valueInput = textInput.value;
-    //se l'input ê uno spazio bianco ritornare FALSO invece che vero!!
+  private compareString(inputString: string): boolean {
     // Compare the letter in the input with the string that i need to guess
-    if (inputString.includes(valueInput)) {
+    if (inputString.includes(this.textInput.value)) {
       const checkWordCallback: forEachType = (el, idx): void => {
-        if (el === valueInput) {
+        if (el === this.textInput.value) {
           const dataTagWord = document.querySelector(
             `[data-tag="${idx}"]`
           )! as HTMLDataElement;
 
-          if (!dataTagWord) return; //Guard clause
-          dataTagWord.innerHTML = `${valueInput}`;
+          if (!dataTagWord) return;
+          dataTagWord.innerHTML = `${this.textInput.value}`;
         }
       };
 
@@ -112,8 +113,8 @@ export class HangManGame_Value {
     }
   }
 
-  private handleError(errors: number, correctWord: string): void {
-    const handleError: string[] = [
+  private handleError(correctWord: string): void {
+    const handleErrors: string[] = [
       ".head",
       ".manbody",
       ".manbody_hands-right",
@@ -123,25 +124,21 @@ export class HangManGame_Value {
     ];
 
     const handleErrorCallback: forEachType = (el, idx): void => {
-      if (errors === idx + 1) {
+      if (this.errors === idx + 1) {
         HangManGame_View.wrongDigit(el!);
       }
     };
 
-    handleError.forEach(handleErrorCallback);
+    handleErrors.forEach(handleErrorCallback);
 
-    if (errors === 6) {
+    if (this.errors === 6) {
       HangManGame_View.messageWinLose("YOU LOOSE!", correctWord);
       HangManGame_View.restartGame();
     }
   }
 
-  private winningMethod(
-    correctWordNumber: number,
-    inputString: string,
-    correctWord: string
-  ) {
-    if (correctWordNumber === this.removeDuplicateCharacters(inputString)) {
+  private winningMethod(inputString: string, correctWord: string) {
+    if (this.winnerWord === this.removeDuplicateCharacters(inputString)) {
       HangManGame_View.messageWinLose("YOU WIN!", correctWord);
       HangManGame_View.restartGame();
     }
