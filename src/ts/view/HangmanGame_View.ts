@@ -7,7 +7,7 @@ export class HangManGame_View {
     new HangManGame_Keyboard();
   }
 
-  createHtmlKeyword(singleWord: string) {
+  public createHtmlKeyword(singleWord: string) {
     const containerLetters = document.querySelector(
       ".words_container"
     )! as HTMLDivElement;
@@ -30,10 +30,10 @@ export class HangManGame_View {
   }
 
   static messageWinLose(text: string, correctWord: string): void {
-    const containerWord = document.querySelector(
-      ".words_container"
-    )! as HTMLDivElement;
-    containerWord.innerHTML = "";
+    const inputContainer = document.querySelector(
+      ".input"
+    )! as HTMLInputElement;
+    inputContainer.innerHTML = "";
 
     let html = `
     <div class="text_container">
@@ -42,7 +42,7 @@ export class HangManGame_View {
     </div>
     `;
 
-    containerWord.insertAdjacentHTML("beforeend", html);
+    inputContainer.insertAdjacentHTML("beforeend", html);
   }
 
   static restartGame() {

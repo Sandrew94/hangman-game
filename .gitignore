@@ -2,3 +2,4 @@ Flowchart-HangmanGame.shapex
 node_modules
 dist
 original
+.DS_Store

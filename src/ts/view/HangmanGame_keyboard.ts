@@ -51,6 +51,7 @@ export class HangManGame_Keyboard {
       const keyboardContainer = document.querySelector(
         ".keyboard_container"
       )! as HTMLDivElement;
+
       const html = `<input type="button" value="${key}" class='keyboard__key'>
       `;
       keyboardContainer.insertAdjacentHTML("beforeend", html);

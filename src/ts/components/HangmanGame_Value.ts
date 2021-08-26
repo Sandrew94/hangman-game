@@ -4,6 +4,9 @@ import { Validatable } from "../utils/exportTypes";
 import { forEachType } from "../utils/exportTypes";
 
 export class HangManGame_Value {
+  private errors: number = 0; //Counter errors
+  private winnerWord: number = 0; //Counter winners
+
   constructor(public word: Promise<string | void>) {
     this.manipulatePromise(word); //This input all the methods in the html
     //Focus on the input
@@ -37,16 +40,14 @@ export class HangManGame_Value {
     )! as HTMLInputElement;
     const formEl = document.querySelector("form")! as HTMLFormElement;
     //////
-
-    let errors = 0; //Counter errors
-    let winnerWord = 0; //Counter winners
     formEl.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       ////////////
       //Validation for the input field
-      //1- NO WHITE SPACE
+      //1- WHITE SPACE ALLOWED
       //2- MAX LENGTH 1
       //3- NO NUMBERS ALLOWED
+      if (textInput.value === "") return; //No Empty string
       const inputValid: Validatable = {
         value: textInput.value,
         whiteSpace: true,
@@ -55,21 +56,21 @@ export class HangManGame_Value {
       };
 
       if (!validate(inputValid)) {
-        alert(
-          "INSERT A VALID INPUT! MAX 1 VALUE - NO NUMBERS - NO EMPTY SPACE"
+        return alert(
+          "INSERT A VALID INPUT! MAX 1 VALUE - NO NUMBERS - NO WHITE SPACE"
         );
       }
       ////////////
 
       if (this.compareString(textInput, inputString)) {
-        winnerWord++; //Counter for correct guessed word
-        this.winningMethod(winnerWord, inputString, inputString); //Winning message
-        // Compare the letter in the input with the string that i need to guess
+        this.winnerWord++; //Counter for correct guessed word
+        this.winningMethod(this.winnerWord, inputString, inputString); //Winning message
         ///////
+        // Compare the letter in the input with the string that i need to guess
         this.compareString(textInput, inputString);
       } else {
-        errors++; //counter for error
-        this.handleError(errors, inputString); //For each errors it appears an images of hangman
+        this.errors++; //counter for error
+        this.handleError(this.errors, inputString); //For each errors it appears an images of hangman
         //Max 6 than game over
       }
       textInput.value = "";
@@ -89,7 +90,7 @@ export class HangManGame_Value {
     inputString: string
   ): boolean {
     const valueInput = textInput.value;
-
+    //se l'input ê uno spazio bianco ritornare FALSO invece che vero!!
     // Compare the letter in the input with the string that i need to guess
     if (inputString.includes(valueInput)) {
       const checkWordCallback: forEachType = (el, idx): void => {
