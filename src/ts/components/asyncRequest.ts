@@ -5,6 +5,8 @@ export const takeAPIWord = async function (pullOfWord: number): Promise<void> {
     );
     return await response.json();
   } catch {
-    throw new Error("Reload the page!");
+    throw new Error(
+      "Server Error - Wait some minutes than try to reload the page!"
+    );
   }
 };

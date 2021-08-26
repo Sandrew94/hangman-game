@@ -54,6 +54,9 @@
     border-bottom: 3px solid $color-grey-dark-1;
     width: 1rem;
     height: 1rem;
+    @media only screen and (min-width: $bp-largest) {
+      font-size: 6rem;
+    }
   }
 }
 
@@ -84,24 +87,21 @@
   align-items: center;
 }
 
-.submit-value {
-  border: none;
-  background: #33675d;
-  color: #ffffff;
-  border-radius: 10px;
-  padding: 0.7rem 2rem;
-  margin-left: 1.5rem;
-
-  &:hover {
-    background-color: #26544b;
-    cursor: pointer;
-  }
-}
-
 .box_container {
   display: flex;
   position: relative;
 }
+
+.back-color {
+  outline: none;
+  background: #33675d;
+  color: #ffffff;
+}
+
+////////
+
+//VIRTUAL KEYBOARD
+
 .keyboard_container {
   top: 10%;
   left: 60%;
@@ -111,25 +111,27 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
+
+  @media only screen and (max-width: $bp-small) {
+    display: none;
+  }
+
+  &-keyboard__key {
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    margin: 0.5rem;
+    font-size: 2rem;
+    padding: 1rem;
+    @media only screen and (min-width: $bp-largest) {
+      font-size: 3.5rem;
+      margin: 0.7rem;
+      padding: 1.2rem;
+    }
+  }
 }
 
-.keyboard__key {
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  margin: 0.5rem;
-  font-size: 2rem;
-  padding: 1rem;
-}
-
-.back-color {
-  outline: none;
-  background: #33675d;
-  color: #ffffff;
-}
-
-////
-//Disabled button
+//Disabled KEYBOARD button
 .disable {
   cursor: not-allowed;
   pointer-events: none;

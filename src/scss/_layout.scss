@@ -103,9 +103,38 @@ body {
     font-size: 3.2rem;
     text-align: center;
     border-radius: 4px;
+    @media only screen and (min-width: $bp-largest) {
+      font-size: 5rem;
+      width: 8rem;
+      height: 8rem;
+    }
   }
   &-text {
     font-size: 2rem;
     margin-bottom: 1rem;
+    @media only screen and (min-width: $bp-largest) {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+.submit-value {
+  border: none;
+  background: #33675d;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 0.7rem 2rem;
+  margin-left: 1.5rem;
+
+  &:hover {
+    background-color: #26544b;
+    cursor: pointer;
+  }
+
+  @media only screen and (min-width: $bp-largest) {
+    font-size: 2rem;
+    padding: 1.3rem 2.7rem;
+    margin-left: 2.5rem;
   }
 }

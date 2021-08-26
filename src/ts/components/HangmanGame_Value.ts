@@ -12,8 +12,6 @@ export class HangManGame_Value {
   ///////
 
   get validationInput() {
-    if (this.textInput.value === "") return; //No Empty string allowed
-    /////////
     //Validation for the input field
     //1- WHITE SPACE NOT ALLOWED
     //2- MAX LENGTH 1
@@ -66,6 +64,7 @@ export class HangManGame_Value {
     this.formEl.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       ////////////
+      if (this.textInput.value === "") return; //No Empty string allowed
       this.validationInput; //Validate the input
       ////////////
 

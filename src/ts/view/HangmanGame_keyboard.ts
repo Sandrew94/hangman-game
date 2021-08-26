@@ -3,7 +3,7 @@ import { forEachType } from "../utils/exportTypes";
 export class HangManGame_Keyboard {
   private keyboardContainer: HTMLDivElement;
   private allKeyboardKey: HTMLInputElement[];
-  private label: HTMLInputElement;
+  private labelInput: HTMLInputElement;
   constructor() {
     this.keyboardContainer = document.querySelector(
       ".keyboard_container"
@@ -12,9 +12,13 @@ export class HangManGame_Keyboard {
     ///////////
     //////////
     this.allKeyboardKey = [
-      ...document.querySelectorAll<HTMLInputElement>(".keyboard__key"),
+      ...document.querySelectorAll<HTMLInputElement>(
+        ".keyboard_container-keyboard__key"
+      ),
     ];
-    this.label = document.querySelector(".label-letter")! as HTMLInputElement;
+    this.labelInput = document.querySelector(
+      ".label-letter"
+    )! as HTMLInputElement;
     this.createInputKey();
   }
 
@@ -60,7 +64,7 @@ export class HangManGame_Keyboard {
     ];
 
     const createKeyboard: forEachType = (key) => {
-      const html = `<input type="button" value="${key}" class='keyboard__key'>
+      const html = `<input type="button" value="${key}" class='keyboard_container-keyboard__key'>
       `;
       this.keyboardContainer.insertAdjacentHTML("beforeend", html);
     };
@@ -73,10 +77,10 @@ export class HangManGame_Keyboard {
       htmlKey.addEventListener("click", () => {
         switch (htmlKey.value) {
           case "space":
-            this.label.value += " ";
+            this.labelInput.value += " ";
             break;
           default:
-            this.label.value = htmlKey.value;
+            this.labelInput.value = htmlKey.value;
             break;
         }
         htmlKey.classList.add("back-color", "disable");
