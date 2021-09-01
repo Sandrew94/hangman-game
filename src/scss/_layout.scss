@@ -96,6 +96,10 @@ body {
   width: auto;
   margin-bottom: 3rem;
 
+  @media only screen and (min-width: $bp-largest) {
+    height: 15rem;
+  }
+
   &-letter {
     border: none;
     width: 5rem;
